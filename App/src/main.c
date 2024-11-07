@@ -59,7 +59,8 @@ static lv_display_t * hal_init(int32_t w, int32_t h);
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-
+static lv_subject_t subject;
+char buf[100];
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
@@ -76,6 +77,21 @@ int main(int argc, char **argv)
   hal_init(320, 480);
 
   lv_demo_widgets();
+
+  lv_subject_init_string(&subject, buf, NULL, sizeof(buf)/sizeof(buf[0]), "\0");
+
+  lv_obj_t *screen = lv_screen_active();
+  lv_obj_clean(screen);
+  lv_obj_t *obj = lv_obj_create(screen);
+  lv_obj_set_size(obj, LV_PCT(100), LV_PCT(100));
+
+  lv_obj_t *label = lv_label_create(obj);
+  lv_obj_center(label);
+
+  lv_label_bind_text(label, &subject, NULL);
+  lv_subject_snprintf(&subject, "Formatted string using lv_subject: Temp: %d °C", 25);
+
+
 
   while(1) {
     /* Periodically call the lv_task handler.
