@@ -1,20 +1,23 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/cpp
 {
-	"name": "C++",
+	"name": "LVGL Simulator",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
 
 	"mounts": [
 		{
-			"source": "/tmp/.X11-unix",
-			"target": "/tmp/.X11-unix",
+			"source": "/mnt/wslg",
+			"target": "/tmp",
 			"type": "bind"
 		}
 	],
 
 	"containerEnv": {
+		"PULSE_SERVER":"${localEnv:PULSE_SERVER}",
+		"XDG_RUNTIME_DIR": "/tmp/runtime_dir/",
+		"WAYLAND_DISPLAY":"${localEnv:WAYLAND_DISPLAY}",
 		"DISPLAY": "${localEnv:DISPLAY}"
 	},
 
